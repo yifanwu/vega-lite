@@ -30,12 +30,8 @@ function parseExpression(field: string, parse: string): string {
 }
 
 export class ParseNode extends DataFlowNode {
-  private _parse: Dict<string> = {};
-
-  constructor(parse: Dict<string>) {
+  constructor(public parse: Dict<string>) {
     super();
-
-    this._parse = parse;
   }
 
   public static make(model: Model) {
@@ -98,26 +94,25 @@ export class ParseNode extends DataFlowNode {
       });
     }
 
+    if (keys(parse).length === 0) {
+      return null;
+    }
+
     return new ParseNode(parse);
   }
 
-  public get parse() {
-    return this._parse;
-  }
-
-
   public merge(other: ParseNode) {
-    this._parse = extend(this._parse, other.parse);
+    this.parse = extend(this.parse, other.parse);
     other.remove();
   }
 
   public assembleFormatParse() {
-    return this._parse;
+    return this.parse;
   }
 
   public assembleTransforms(): VgFormulaTransform[] {
-    return Object.keys(this._parse).map(field => {
-      const expr = parseExpression(field, this._parse[field]);
+    return Object.keys(this.parse).map(field => {
+      const expr = parseExpression(field, this.parse[field]);
       if (!expr) {
         return null;
       }

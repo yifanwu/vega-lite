@@ -1,6 +1,6 @@
 import {MAIN} from '../../data';
 import {field} from '../../fielddef';
-import {every, flatten, vals} from '../../util';
+import {differ, every, extend, flatten, vals} from '../../util';
 import {VgData} from '../../vega.schema';
 import {Model} from '../model';
 import {AggregateNode} from './aggregate';
@@ -41,6 +41,37 @@ function removeUnnecessaryNodes(node: DataFlowNode) {
   }
 
   node.children.forEach(removeUnnecessaryNodes);
+}
+
+/**
+ * Merge parse nodes after forks that are compatible.
+ *
+ * TODO: merge up equivalent parse from all child nodes per field.
+ */
+function mergeParse(node: SourceNode) {
+  const children = node.children.filter(c => c instanceof ParseNode) as ParseNode[];
+  if (children.length > 1) {
+    let parse = children[0].parse;
+    for (const child of children.slice(1)) {
+      if (differ(parse, child.parse)) {
+        return;
+      }
+      parse = extend(parse, child.parse);
+    }
+
+    for (const child of children) {
+      child.remove();
+    }
+
+    // insert new parse node
+    const parseNode = new ParseNode(parse);
+    node.children.forEach(c => {
+      node.removeChild(c);
+      c.parent = parseNode;
+    });
+    parseNode.parent = node;
+    debugger;
+  }
 }
 
 /**
@@ -299,6 +330,7 @@ export function assembleData(roots: SourceNode[]): VgData[] {
   roots = roots.filter(r => r.numChildren() > 0);
 
   getLeaves(roots).forEach(iterateFromLeaves(optimizers.moveParseUp));
+  roots.forEach(mergeParse);
 
   roots.forEach(moveFacetDown);
 
