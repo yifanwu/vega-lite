@@ -7,7 +7,9 @@ permalink: /docs/compositemark.html
 
 Composite marks are "macros" for more complex layered mark specs. Layered mark specs create visualizations with a series of basic mark types.
 
-Supported composite mark types include: [`box-plot`](#box-plot).
+| Property      | Type          | Description    |
+| :------------ |:-------------:| :------------- |
+| `mark`      | String        | The CompositeMark type. Supported composite marks include: "box-plot". |
 
 ## Box Plot
 
