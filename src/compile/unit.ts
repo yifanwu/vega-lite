@@ -68,12 +68,12 @@ export class UnitModel extends ModelWithField {
     this.initFacetCellConfig();
 
     // use top-level width / height or parent's top-level width / height
-
-    // FIXME: once facet supports width/height, this is no longer correct!
     const providedWidth = spec.width !== undefined ? spec.width :
-      parent ? parent['width'] : undefined; // only exists if parent is layer
+      // Use width if parent is layer / vconcat
+      parent ? parent['width'] : undefined;
     const providedHeight = spec.height !== undefined ? spec.height :
-      parent ? parent['height'] : undefined; // only exists if parent is layer
+      // Use height if parent is layer / hconcat
+      parent ? parent['height'] : undefined;
 
     const mark = isMarkDef(spec.mark) ? spec.mark.type : spec.mark;
     const encoding = this.encoding = normalizeEncoding(replaceRepeaterInEncoding(spec.encoding || {}, repeater), mark);

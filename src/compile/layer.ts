@@ -42,8 +42,13 @@ export class LayerModel extends Model {
 
     super(spec, parent, parentGivenName, config);
 
-    this.width = spec.width;
-    this.height = spec.height;
+    this.width = spec.width !== undefined ? spec.width :
+      // Use width if parent is layer / vconcat
+      parent ? parent['width'] : undefined;
+
+    this.height = spec.height !== undefined ? spec.height :
+      // Use height if parent is layer / hconcat
+      parent ? parent['height'] : undefined;
 
     this.children = spec.layer.map((layer, i) => {
       // FIXME: this is not always the case
