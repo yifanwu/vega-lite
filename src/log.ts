@@ -179,6 +179,8 @@ export namespace message {
   export const CANNOT_USE_RANGE_WITH_POSITION =
     'Cannot use custom range with x or y channel.  Please customize width, height, padding, or rangeStep instead.';
 
+  export const CANNOT_USE_BAND_SCALE_WITH_SIZE_FIELD = 'Encoding size field with a band scale with size field is not supported.';
+
   export const CANNOT_USE_PADDING_WITH_FACET = 'Cannot use padding with facet\'s scale.  Please use spacing instead.';
 
   export function cannotUseRangePropertyWithFacet(propName: string) {

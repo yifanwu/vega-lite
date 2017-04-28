@@ -58,7 +58,7 @@ export function fieldRef(fieldDef: FieldDef<string>, scaleName: string, opt: Fie
   return ref;
 }
 
-export function band(scaleName: string, band: number|boolean = true): VgValueRef {
+export function band(scaleName: string, band: number|boolean|VgValueRef = true): VgValueRef {
   return {
     scale: scaleName,
     band: band

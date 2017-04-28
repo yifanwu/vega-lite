@@ -1,3 +1,4 @@
+import * as log from '../../log';
 import {MarkDef} from '../../mark';
 import * as util from '../../util';
 import {VgEncodeEntry, VgValueRef} from '../../vega.schema';
@@ -7,7 +8,7 @@ import {UnitModel} from '../unit';
 import * as ref from './valueref';
 
 import {NONSPATIAL_SCALE_CHANNELS} from '../../channel';
-import {Condition} from '../../fielddef';
+import {Condition, isFieldDef, isValueDef} from '../../fielddef';
 import {predicate} from '../selection/selection';
 
 export function color(model: UnitModel) {
@@ -90,13 +91,30 @@ export function text(model: UnitModel) {
 }
 
 export function bandPosition(channel: 'x'|'y', model: UnitModel) {
-  // TODO: band scale doesn't support size yet
   const fieldDef = model.encoding[channel];
   const scaleName = model.scaleName(channel);
   const sizeChannel = channel === 'x' ? 'width' : 'height';
+
+  let offset, band: number | boolean = true;
+
+  // FIXME: check orientation to know clear that size should be applied
+  // FIXME: this could be incorrect for condition
+  if (model.encoding.size) {
+    if (isFieldDef(model.encoding.size)) {
+      log.warn(log.message.CANNOT_USE_BAND_SCALE_WITH_SIZE_FIELD);
+      // sizeRef = ref.fieldRef(model.encoding.size, model.scaleName('size'), {});
+      // offset = {...sizeRef, mult: 0.5};
+    } else if (isValueDef(model.encoding.size)) {
+      band = model.encoding.size.value;
+      offset = ref.band(scaleName, band * 0.5);
+    } else {
+      throw new Error(log.message.emptyFieldDef(model.encoding.size, 'size'));
+    }
+  }
+
   return {
-    [channel]: ref.fieldRef(fieldDef, scaleName, {}),
-    [sizeChannel]: ref.band(scaleName)
+    [channel]: ref.fieldRef(fieldDef, scaleName, {}, offset),
+    [sizeChannel]: ref.band(scaleName, band)
   };
 }
 
