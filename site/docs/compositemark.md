@@ -55,8 +55,9 @@ You can customize the color and size of the box in the `box-plot` by using the `
 
 You can specify in the config property the size of the box using:
 
+{: .suppress-error}
 ```json
-{config: {box: {size: ...}}}
+{"config": {"box": {"size": ...}}}
 ```
 
 For futher config customization we must look at what the short 2D `box-plot` example shown in Boxplot with Color and/or Size section is expanded to:
@@ -65,12 +66,13 @@ For futher config customization we must look at what the short 2D `box-plot` exa
 
 There are three roles: `box`, `boxWhisker`, `boxMid`. Therefore as you have seen from specifying the size of the box you can specify [mark](mark.html) properties in config.
 
+{: .suppress-error}
 ```json
 {
-  config: {
-    box: ...,
-    boxWhisker: ...,
-    boxMid: ...
+  "config": {
+    "box": ...,
+    "boxWhiskers": ...,
+    "boxMid": ...
   }
 }
 ```
