@@ -53,7 +53,7 @@ You can customize the color and size of the box in the `box-plot` by using the `
 
 ### Boxplot Config
 
-You can specify in the config property the size of the box using:
+You can specify the size of the box in the config using:
 
 {: .suppress-error}
 ```json
@@ -77,4 +77,4 @@ There are three roles: `box`, `boxWhisker`, `boxMid`. Therefore as you have seen
 }
 ```
 
-**Note**: `box` can specify size on top of everything `boxWhisker` and `boxMid` can.
+**Note**: `box` can specify `size` in addition to `color` and `opacity` which `boxWhisker` and `boxMid` can specify.
