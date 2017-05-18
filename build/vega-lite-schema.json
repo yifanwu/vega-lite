@@ -4312,7 +4312,7 @@
                 },
                 "type": {
                     "$ref": "#/definitions/ScaleType",
-                    "description": "The type of scale.\n- For a _quantitative_ field, supported quantitative scale types  are `\"linear\"` (default), `\"log\"`, `\"pow\"`, `\"sqrt\"`, `\"quantile\"`, `\"quantize\"`, and `\"threshold\"`.\n- For a _temporal_ field without `timeUnit`, the scale type should be `\"time\"` (default) or `\"ordinal\"`.\n- For _ordinal_ and _nominal_ fields, the type is always `\"ordinal\"`.\nUnsupported values will be ignored."
+                    "description": "The type of scale.\n- For a _quantitative_ field, supported quantitative scale types  are `\"linear\"` (default), `\"log\"`, `\"pow\"`, `\"sqrt\"`, `\"quantile\"`, `\"quantize\"`, and `\"threshold\"`.\n- For a _temporal_ field without `timeUnit`, the scale type should be `\"time\"` (default), `\"utc\"` or `\"ordinal\"`.\n- For _ordinal_ and _nominal_ fields, the type is always `\"ordinal\"`. See more about [UTC time](timeunit.html#utc)\nUnsupported values will be ignored."
                 },
                 "zero": {
                     "description": "If `true`, ensures that a zero baseline value is included in the scale domain.\nDefault value: `true` for `x` and `y` channel if the quantitative field is not binned\nand no custom `domain` is provided; `false` otherwise.\n\n__Default value:__ `true` for `x` and `y` channel if the quantitative field is not binned and no custom `domain` is provided; `false` otherwise.\n\n__Note:__  This property is always `false` for log scale.",

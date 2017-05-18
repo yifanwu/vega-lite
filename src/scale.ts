@@ -301,8 +301,8 @@ export interface Scale {
   /**
    * The type of scale.
    * - For a _quantitative_ field, supported quantitative scale types  are `"linear"` (default), `"log"`, `"pow"`, `"sqrt"`, `"quantile"`, `"quantize"`, and `"threshold"`.
-   * - For a _temporal_ field without `timeUnit`, the scale type should be `"time"` (default) or `"ordinal"`.
-   * - For _ordinal_ and _nominal_ fields, the type is always `"ordinal"`.
+   * - For a _temporal_ field without `timeUnit`, the scale type should be `"time"` (default), `"utc"` or `"ordinal"`.
+   * - For _ordinal_ and _nominal_ fields, the type is always `"ordinal"`. See more about [UTC time](timeunit.html#utc)
    * Unsupported values will be ignored.
    */
   type?: ScaleType;
