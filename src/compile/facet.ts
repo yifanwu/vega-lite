@@ -25,11 +25,9 @@ import {applyConfig, buildModel, formatSignalRef} from './common';
 import {assembleData, assembleFacetData, FACET_SCALE_PREFIX} from './data/assemble';
 import {parseData} from './data/parse';
 import {getHeaderType, HeaderChannel, HeaderComponent, LayoutHeaderComponent} from './layout/header';
-import {labels} from './legend/encode';
 import {Model, ModelWithField} from './model';
 import {RepeaterValue, replaceRepeaterInFacet} from './repeat';
 import parseScaleComponent from './scale/parse';
-import {UnitModel} from './unit';
 
 export class FacetModel extends ModelWithField {
   public readonly facet: Facet<string>;
