@@ -95,3 +95,22 @@ A DateTime object must have at least one of the following properties:
 #### Filter Array
 
 For a filter array, the array's members should be either filter objects or filter expressions.  All member predicates should be satisfied for a data item to be included in the filtered data.  In other words, the `filter` array will form a conjunctive predicate that joins all predicates with "and" operators.
+
+{:#bin}
+### Bin
+
+{% include table.html props="bin,field,as" source="BinTransform" %}
+
+{:#timeunit}
+### TimeUnit
+
+{% include table.html props="timeUnit,field,as" source="TimeUnitTransform" %}
+
+{:#summarize}
+### Summarize
+
+{% include table.html props="summarize,groupby" source="SummarizeTransform" %}
+
+#### Summarize Object
+
+{% include table.html props="aggregate,field,as" source="Summarize" %}

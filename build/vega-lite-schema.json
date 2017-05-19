@@ -1573,7 +1573,7 @@
             "additionalProperties": false,
             "properties": {
                 "as": {
-                    "description": "The field for storing the computed formula value.",
+                    "description": "The output fields at which to write the start and end bin values.",
                     "type": "string"
                 },
                 "bin": {
@@ -1585,10 +1585,10 @@
                             "type": "boolean"
                         }
                     ],
-                    "description": "Boolean flag indicating using bin transform"
+                    "description": "Binning properties or boolean flag for determining whether to bin data or not."
                 },
                 "field": {
-                    "description": "The field to use this transform on.",
+                    "description": "The data field to bin.",
                     "type": "string"
                 }
             },
@@ -4940,12 +4940,15 @@
             "additionalProperties": false,
             "properties": {
                 "aggregate": {
-                    "$ref": "#/definitions/AggregateOp"
+                    "$ref": "#/definitions/AggregateOp",
+                    "description": "The aggregation operations to apply to the fields, such as sum, average or count. See the aggregate operation reference for more."
                 },
                 "as": {
+                    "description": "The output field names to use for each aggregated field in field. If not specified, names will be automatically generated based on the operation and field names (e.g., sum_field, average_field).",
                     "type": "string"
                 },
                 "field": {
+                    "description": "The data field for which to compute aggregate function.",
                     "type": "string"
                 }
             },
@@ -4960,14 +4963,14 @@
             "additionalProperties": false,
             "properties": {
                 "groupby": {
-                    "description": "Array of fields we will be useing for group by",
+                    "description": "The data fields to group by. If not specified, a single group containing all data objects will be used.",
                     "items": {
                         "type": "string"
                     },
                     "type": "array"
                 },
                 "summarize": {
-                    "description": "Array of objects that contains",
+                    "description": "Array of objects that contains aggregate information for the transform.",
                     "items": {
                         "$ref": "#/definitions/Summarize"
                     },
@@ -5418,16 +5421,16 @@
             "additionalProperties": false,
             "properties": {
                 "as": {
-                    "description": "The field for storing the computed formula value.",
+                    "description": "The output field at which to write the timeUnit value.",
                     "type": "string"
                 },
                 "field": {
-                    "description": "The field to use this transform on.",
+                    "description": "The data field to use this timeUnit on.",
                     "type": "string"
                 },
                 "timeUnit": {
                     "$ref": "#/definitions/TimeUnit",
-                    "description": "The type of time unit for this transform."
+                    "description": "The timeUnit for calculating derived values."
                 }
             },
             "required": [
