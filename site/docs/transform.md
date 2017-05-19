@@ -107,7 +107,7 @@ For a filter array, the array's members should be either filter objects or filte
 {% include table.html props="timeUnit,field,as" source="TimeUnitTransform" %}
 
 {:#summarize}
-### Summarize
+### Aggregate
 
 {% include table.html props="summarize,groupby" source="SummarizeTransform" %}
 
