@@ -74,7 +74,7 @@ To parse data in local time or UTC time, there are three cases:
 <span class="vl-example" data-name="parse_utc_time"></span>
 
 3) If the input data is inline data or url data without ISO format, to parse data in UTC time, we need to have custom `format` with `UTC`
-<span class="vl-example" data-name="parse_utc_time_format"></span>
+<!--<span class="vl-example" data-name="parse_utc_time_format"></span>-->
 
 ### Output
 By default, vega-lite will output data in local time (even when input is parsed in UTC time). To output data in UTC time, we need to let user specify either one of:
