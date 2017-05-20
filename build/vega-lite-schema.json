@@ -1582,10 +1582,13 @@
                             "$ref": "#/definitions/Bin"
                         },
                         {
+                            "enum": [
+                                true
+                            ],
                             "type": "boolean"
                         }
                     ],
-                    "description": "Binning properties or boolean flag for determining whether to bin data or not."
+                    "description": "An object indicating bin properties, or simply `true` for using default bin values.."
                 },
                 "field": {
                     "description": "The data field to bin.",
@@ -4944,7 +4947,7 @@
                     "description": "The aggregation operations to apply to the fields, such as sum, average or count. See the aggregate operation reference for more."
                 },
                 "as": {
-                    "description": "The output field names to use for each aggregated field in field. If not specified, names will be automatically generated based on the operation and field names (e.g., sum_field, average_field).",
+                    "description": "The output field names to use for each aggregated field.",
                     "type": "string"
                 },
                 "field": {
@@ -5421,16 +5424,16 @@
             "additionalProperties": false,
             "properties": {
                 "as": {
-                    "description": "The output field at which to write the timeUnit value.",
+                    "description": "The output field to write the timeUnit value.",
                     "type": "string"
                 },
                 "field": {
-                    "description": "The data field to use this timeUnit on.",
+                    "description": "The data field to apply time unit.",
                     "type": "string"
                 },
                 "timeUnit": {
                     "$ref": "#/definitions/TimeUnit",
-                    "description": "The timeUnit for calculating derived values."
+                    "description": "The timeUnit."
                 }
             },
             "required": [

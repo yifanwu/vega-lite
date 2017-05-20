@@ -30,9 +30,9 @@ export interface CalculateTransform {
 
 export interface BinTransform {
   /**
-   * Binning properties or boolean flag for determining whether to bin data or not.
+   * An object indicating bin properties, or simply `true` for using default bin values..
    */
-  bin: boolean | Bin;
+  bin: Bin | true;
 
   /**
    * The data field to bin.
@@ -47,17 +47,17 @@ export interface BinTransform {
 
 export interface TimeUnitTransform {
   /**
-   * The timeUnit for calculating derived values.
+   * The timeUnit.
    */
   timeUnit: TimeUnit;
 
   /**
-   * The data field to use this timeUnit on.
+   * The data field to apply time unit.
    */
   field: string;
 
   /**
-   * The output field at which to write the timeUnit value.
+   * The output field to write the timeUnit value.
    */
   as: string;
 }
@@ -71,7 +71,7 @@ export interface SummarizeTransform {
   /**
    * The data fields to group by. If not specified, a single group containing all data objects will be used.
    */
-  groupby: string[];
+  groupby?: string[];
 }
 
 export interface Summarize {
@@ -86,7 +86,7 @@ export interface Summarize {
   field: string;
 
   /**
-   * The output field names to use for each aggregated field in field. If not specified, names will be automatically generated based on the operation and field names (e.g., sum_field, average_field).
+   * The output field names to use for each aggregated field.
    */
   as: string;
 }
