@@ -10,7 +10,7 @@ import {Projection} from '../projection';
 import {FacetSpec} from '../spec';
 import {StackProperties} from '../stack';
 import {contains, Dict, extend, flatten, keys, stringValue, vals} from '../util';
-import {FontWeight, VgSignal} from '../vega.schema';
+import {FontWeight, VgProjection, VgSignal} from '../vega.schema';
 import {
   isDataRefDomain,
   isDataRefUnionedDomain,
@@ -35,12 +35,16 @@ import {UnitModel} from './unit';
 export class FacetModel extends ModelWithField {
   public readonly facet: Facet<string>;
 
+  public readonly projection: Projection;
+
   public readonly child: Model;
 
   public readonly children: Model[];
 
   constructor(spec: FacetSpec, parent: Model, parentGivenName: string, repeater: RepeaterValue, config: Config) {
     super(spec, parent, parentGivenName, config);
+
+    this.projection = spec.projection;
 
     this.child = buildModel(spec.spec, this, this.getName('child'), undefined, repeater, config);
     this.children = [this.child];
@@ -135,8 +139,9 @@ export class FacetModel extends ModelWithField {
   }
 
   public parseProjection() {
-    this.component.projections = this.child.component.projections;
-    this.child.component.projections = [];
+    this.children.forEach(child => {
+      child.parseProjection();
+    });
   }
 
   public parseMark() {
@@ -247,6 +252,13 @@ export class FacetModel extends ModelWithField {
     }
 
     return [];
+  }
+
+  public assembleProjections(): VgProjection[] {
+    // TODO: reduce redundency?
+    return this.children.reduce((projections, child) => {
+      return projections.concat(child.assembleProjections());
+    }, []);
   }
 
   public assembleParentGroupProperties(): any {

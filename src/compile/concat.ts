@@ -1,4 +1,5 @@
 import {CellConfig, Config} from '../config';
+import {Projection} from '../projection';
 import {Repeat} from '../repeat';
 import {ConcatSpec, isVConcatSpec, RepeatSpec} from '../spec';
 import {Dict, keys, vals} from '../util';
@@ -14,10 +15,14 @@ export class ConcatModel extends Model {
 
   public readonly children: Model[];
 
+  public readonly projection: Projection;
+
   public readonly isVConcat: boolean;
 
   constructor(spec: ConcatSpec, parent: Model, parentGivenName: string, repeater: RepeaterValue, config: Config) {
     super(spec, parent, parentGivenName, config);
+
+    this.projection = spec.projection;
 
     this.isVConcat = isVConcatSpec(spec);
 
@@ -125,7 +130,6 @@ export class ConcatModel extends Model {
   }
 
   public assembleProjections(): VgProjection[] {
-    // aggregate scales from children into one array
     // TODO: reduce redundency?
     return this.children.reduce((projections, c) => {
       return projections.concat(c.assembleProjections());
